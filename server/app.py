@@ -100,12 +100,10 @@ class MemberOnlyArticle(Resource):
         if not session.get('user_id'):
             return {'message': 'Unauthorized access'}, 401
         
-        user_id = session['user_id']
-        
         article = Article.query.filter(Article.id == id, Article.is_member_only == True).first()
         
         if not article:
-            return {'message': 'Article not found or unauthorized access'}, 401
+            return {'message': 'Article not found or unauthorized access'}, 200
         
         return article.to_dict(), 200
 
